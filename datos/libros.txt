@@ -98,3 +98,4 @@ L097;Inteligencia emocional;Daniel Goleman;1995;Psicologia;None
 L098;El poder de los habitos;Charles Duhigg;2012;Desarrollo personal;None
 L099;Pensar rapido pensar despacio;Daniel Kahneman;2011;Psicologia;None
 L100;El principe;Nicolas Maquiavelo;1532;Ensayo;None
+L101;S016;Iñaki;2026;Desarrollo personal;None

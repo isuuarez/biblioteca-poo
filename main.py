@@ -12,6 +12,80 @@ RUTA_SOCIOS = "datos/socios.txt"
 RUTA_LOG = "log.txt"
 
 
+# Funcion para mostrar el menu principal
+def mostrar_menu():
+
+    print("\n================================")
+    print("       BIBLIOTECA")
+    print("================================")
+
+    print("1. Mostrar todos los libros")
+    print("2. Mostrar libros disponibles")
+    print("3. Buscar libro")
+    print("4. Prestar libro")
+    print("5. Devolver libro")
+    print("6. Mostrar socios con prestamos")
+    print("7. Anadir libros y socios")
+    print("8. Salir")
+
+    print("================================")
+
+
+# Funcion principal del programa
+def main():
+
+    # Cargamos los libros y los socios
+    libros = cargar_libros()
+    socios = cargar_socios()
+
+    print("\nInformacion de los libros cargada correctamente.")
+    print("Libros cargados:", len(libros))
+    print("Socios cargados:", len(socios))
+
+    # Mantenemos el menu en funcionamiento
+    while True:
+
+        mostrar_menu()
+
+        opcion = input("Selecciona una opcion: ").strip()
+
+        if opcion == "1":
+
+            mostrar_libros(libros)
+
+        elif opcion == "2":
+
+            mostrar_disponibles(libros)
+
+        elif opcion == "3":
+
+            buscar_libro(libros)
+
+        elif opcion == "4":
+
+            prestar_libro(libros, socios)
+
+        elif opcion == "5":
+
+            devolver_libro(libros, socios)
+
+        elif opcion == "6":
+
+            mostrar_prestamos(libros, socios)
+
+        elif opcion == "7":
+
+            anadir_elementos(libros, socios)
+
+        elif opcion == "8":
+
+            salir_programa(libros, socios)
+            break
+
+        else:
+
+            print("Opcion no valida. Introduce un numero del 1 al 8.")
+
 # Funcion para mostrar los datos de un libro
 def mostrar_datos_libro(libro):
 
@@ -175,8 +249,8 @@ def anadir_elementos(libros, socios):
     while True:
 
         print("\n--------------- ANADIR ELEMENTOS ---------------")
-        print("1. Anadir un libro")
-        print("2. Anadir un socio")
+        print("1. Añadir un libro")
+        print("2. Añadir un socio")
         print("3. Volver al menu principal")
 
         opcion = input("Selecciona una opcion: ").strip()
@@ -412,31 +486,8 @@ def devolver_libro(libros, socios):
         print("Codigo:", error.codigo)
 
 
-# PRUEBAS TEMPORALES DE LA FASE 6
 
+# Iniciamos el programa
 if __name__ == "__main__":
+    main()
 
-    # Cargamos los datos
-    libros = cargar_libros()
-    socios = cargar_socios()
-
-    print("Biblioteca cargada correctamente.")
-    print("Libros:", len(libros))
-    print("Socios:", len(socios))
-
-    # Opcion 1: mostrar todos los libros
-    mostrar_libros(libros)
-
-    # Opcion 2: mostrar libros disponibles
-    mostrar_disponibles(libros)
-
-    # Opcion 3: buscar un libro
-    buscar_libro(libros)
-
-    # Opcion 6: mostrar socios con prestamos
-    mostrar_prestamos(libros, socios)
-
-    # Opcion 7: anadir libros o socios
-    anadir_elementos(libros, socios)
-
-    print("\nPruebas de la FASE 6 finalizadas.")
