@@ -1,0 +1,2 @@
+[2026-11-13 20:04:13][PRESTAMO][Libro L001 prestado al socio S001]
+[2026-11-13 20:05:02][DEVOLUCION][Libro L001 devuelto por el socio S001]
