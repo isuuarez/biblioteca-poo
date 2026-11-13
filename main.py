@@ -1,22 +1,25 @@
 
-# Importamos las clases Libro y Socio
+# Importamos las clases necesarias
 from modelo.libro import Libro
 from modelo.socio import Socio
+
+from dao.libro_dao import LibroDAO
+from dao.socio_dao import SocioDAO
+
+from servicios.biblioteca import Biblioteca
 from errores.excepciones import ErrorBiblioteca
-from datetime import datetime
 
 
 # Rutas de los archivos
 RUTA_LIBROS = "datos/libros.txt"
 RUTA_SOCIOS = "datos/socios.txt"
-RUTA_LOG = "log.txt"
 
 
 # Funcion para mostrar el menu principal
 def mostrar_menu():
 
     print("\n================================")
-    print("       BIBLIOTECA")
+    print("          BIBLIOTECA")
     print("================================")
 
     print("1. Mostrar todos los libros")
@@ -30,61 +33,6 @@ def mostrar_menu():
 
     print("================================")
 
-
-# Funcion principal del programa
-def main():
-
-    # Cargamos los libros y los socios
-    libros = cargar_libros()
-    socios = cargar_socios()
-
-    print("\nInformacion de los libros cargada correctamente.")
-    print("Libros cargados:", len(libros))
-    print("Socios cargados:", len(socios))
-
-    # Mantenemos el menu en funcionamiento
-    while True:
-
-        mostrar_menu()
-
-        opcion = input("Selecciona una opcion: ").strip()
-
-        if opcion == "1":
-
-            mostrar_libros(libros)
-
-        elif opcion == "2":
-
-            mostrar_disponibles(libros)
-
-        elif opcion == "3":
-
-            buscar_libro(libros)
-
-        elif opcion == "4":
-
-            prestar_libro(libros, socios)
-
-        elif opcion == "5":
-
-            devolver_libro(libros, socios)
-
-        elif opcion == "6":
-
-            mostrar_prestamos(libros, socios)
-
-        elif opcion == "7":
-
-            anadir_elementos(libros, socios)
-
-        elif opcion == "8":
-
-            salir_programa(libros, socios)
-            break
-
-        else:
-
-            print("Opcion no valida. Introduce un numero del 1 al 8.")
 
 # Funcion para mostrar los datos de un libro
 def mostrar_datos_libro(libro):
@@ -101,393 +49,238 @@ def mostrar_datos_libro(libro):
     )
 
 
-# Funcion para mostrar todos los libros
-def mostrar_libros(libros):
+# Opcion 1: mostrar todos los libros
+def opcion_mostrar_libros(biblioteca):
 
-    print("\n--------------- TODOS LOS LIBROS ---------------")
-    print("CODIGO | TITULO | AUTOR | ANIO | CATEGORIA | ESTADO")
+    print("\n----- TODOS LOS LIBROS -----")
 
-    for libro in libros.values():
+    libros = biblioteca.obtener_todos_los_libros()
+
+    for libro in libros:
         mostrar_datos_libro(libro)
 
 
-# Funcion para mostrar solamente los libros disponibles
-def mostrar_disponibles(libros):
+# Opcion 2: mostrar libros disponibles
+def opcion_mostrar_disponibles(biblioteca):
 
-    print("\n--------------- LIBROS DISPONIBLES ---------------")
+    print("\n----- LIBROS DISPONIBLES -----")
 
-    encontrados = False
+    libros = biblioteca.obtener_libros_disponibles()
 
-    for libro in libros.values():
-
-        if libro.esta_disponible():
-            mostrar_datos_libro(libro)
-            encontrados = True
-
-    if not encontrados:
+    if not libros:
         print("No hay libros disponibles.")
+        return
+
+    for libro in libros:
+        mostrar_datos_libro(libro)
 
 
-# Funcion para buscar un libro por su titulo
-def buscar_libro(libros):
+# Opcion 3: buscar un libro
+def opcion_buscar_libro(biblioteca):
 
-    termino = input("\nIntroduce el titulo o una parte del titulo: ").strip().casefold()
+    termino = input("Introduce el titulo o una parte del titulo: ")
 
-    encontrados = False
+    libros = biblioteca.buscar_libros(termino)
 
-    for libro in libros.values():
-
-        if termino in libro.titulo.casefold():
-
-            mostrar_datos_libro(libro)
-            encontrados = True
-
-    if not encontrados:
+    if not libros:
         print("No se ha encontrado ningun libro.")
-
-
-# Funcion para mostrar los socios que tienen libros prestados
-def mostrar_prestamos(libros, socios):
-
-    print("\n--------------- SOCIOS CON PRESTAMOS ---------------")
-
-    encontrados = False
-
-    for socio in socios.values():
-
-        if socio.tiene_libro():
-
-            codigo_libro = socio.codigo_libro
-            libro = libros.get(codigo_libro)
-
-            if libro is not None:
-                print(
-                    f"Socio: {socio.codigo} | {socio.nombre} | "
-                    f"Libro: {libro.titulo}"
-                )
-            else:
-                print(
-                    f"Socio: {socio.codigo} | "
-                    f"Libro asociado: {codigo_libro}"
-                )
-
-            encontrados = True
-
-    if not encontrados:
-        print("Actualmente no hay libros prestados.")
-
-
-# Funcion para anadir un libro nuevo
-def anadir_libro(libros):
-
-    print("\n--------------- AÑADIR LIBRO ---------------")
-
-    codigo = input("Introduce el codigo del libro: ").strip().upper()
-
-    # Comprobamos que el codigo no exista
-    if not codigo:
-        print("El codigo no puede estar vacio.")
         return
 
-    if codigo in libros:
-        print("Ya existe un libro con ese codigo.")
-        return
+    print("\n----- RESULTADOS DE LA BUSQUEDA -----")
 
-    titulo = input("Introduce el titulo: ").strip()
-    autor = input("Introduce el autor: ").strip()
+    for libro in libros:
+        mostrar_datos_libro(libro)
 
-    # Comprobamos que el ano sea numerico
+
+# Opcion 4: prestar un libro
+def opcion_prestar_libro(biblioteca):
+
+    codigo_libro = input("Introduce el codigo del libro: ")
+    codigo_socio = input("Introduce el codigo del socio: ")
+
     try:
-        anio = int(input("Introduce el ano: "))
 
-    except ValueError:
-        print("El ano debe ser un numero.")
+        libro = biblioteca.prestar_libro(codigo_libro, codigo_socio)
+
+        print("Prestamo realizado correctamente.")
+        print("Libro:", libro.titulo)
+
+    except ErrorBiblioteca as error:
+
+        print("ERROR:", error.mensaje)
+        print("Codigo:", error.codigo)
+
+
+# Opcion 5: devolver un libro
+def opcion_devolver_libro(biblioteca):
+
+    codigo_socio = input("Introduce el codigo del socio: ")
+
+    try:
+
+        libro = biblioteca.devolver_libro(codigo_socio)
+
+        print("Devolucion realizada correctamente.")
+        print("Libro devuelto:", libro.titulo)
+
+    except ErrorBiblioteca as error:
+
+        print("ERROR:", error.mensaje)
+        print("Codigo:", error.codigo)
+
+
+# Opcion 6: mostrar socios con libros prestados
+def opcion_mostrar_prestamos(biblioteca):
+
+    print("\n----- SOCIOS CON PRESTAMOS -----")
+
+    prestamos = biblioteca.obtener_socios_con_prestamos()
+
+    if not prestamos:
+        print("Actualmente no hay libros prestados.")
         return
 
-    categoria = input("Introduce la categoria: ").strip()
+    for socio, libro in prestamos:
 
-    # Creamos el nuevo libro
-    libro = Libro(codigo, titulo, autor, anio, categoria)
+        if libro is not None:
 
-    # Lo anadimos al diccionario
-    libros[codigo] = libro
-
-    print("Libro añadido correctamente.")
-
-
-# Funcion para añadir un socio nuevo
-def anadir_socio(socios):
-
-    print("\n--------------- AÑADIR SOCIO ---------------")
-
-    codigo = input("Introduce el codigo del socio: ").strip().upper()
-
-    # Comprobamos que el codigo no exista
-    if not codigo:
-        print("El codigo no puede estar vacio.")
-        return
-
-    if codigo in socios:
-        print("Ya existe un socio con ese codigo.")
-        return
-
-    nombre = input("Introduce el nombre: ").strip()
-    email = input("Introduce el email: ").strip()
-
-    # Creamos el nuevo socio
-    socio = Socio(codigo, nombre, email)
-
-    # Lo anadimos al diccionario
-    socios[codigo] = socio
-
-    print("Socio añadido correctamente.")
+            print(
+                f"Socio: {socio.codigo} | {socio.nombre} | "
+                f"Libro: {libro.titulo}"
+            )
 
 
-# Funcion para elegir si queremos añadir un libro o un socio
-def anadir_elementos(libros, socios):
+# Opcion 7: añadir libros y socios
+def opcion_anadir_elementos(biblioteca):
 
     while True:
 
-        print("\n--------------- AÑADIR ELEMENTOS ---------------")
-        print("1. Añadir un libro")
-        print("2. Añadir un socio")
+        print("\n----- AÑADIR ELEMENTOS -----")
+        print("1. Añadir libro")
+        print("2. Añadir socio")
         print("3. Volver al menu principal")
 
         opcion = input("Selecciona una opcion: ").strip()
 
         if opcion == "1":
-            anadir_libro(libros)
+
+            codigo = input("Codigo del libro: ").strip().upper()
+
+            titulo = input("Titulo: ").strip()
+            autor = input("Autor: ").strip()
+
+            try:
+                anio = int(input("Ano: "))
+
+            except ValueError:
+                print("El ano debe ser numerico.")
+                continue
+
+            categoria = input("Categoria: ").strip()
+
+            if not codigo or not titulo or not autor or not categoria:
+                print("Todos los campos son obligatorios.")
+                continue
+
+            libro = Libro(codigo, titulo, autor, anio, categoria)
+
+            if biblioteca.anadir_libro(libro):
+                print("Libro añadido correctamente.")
+            else:
+                print("Ya existe un libro con ese codigo.")
 
         elif opcion == "2":
-            anadir_socio(socios)
+
+            codigo = input("Codigo del socio: ").strip().upper()
+            nombre = input("Nombre: ").strip()
+            email = input("Email: ").strip()
+
+            if not codigo or not nombre or not email:
+                print("Todos los campos son obligatorios.")
+                continue
+
+            socio = Socio(codigo, nombre, email)
+
+            if biblioteca.anadir_socio(socio):
+                print("Socio añadido correctamente.")
+            else:
+                print("Ya existe un socio con ese codigo.")
 
         elif opcion == "3":
+
             break
 
         else:
+
             print("Opcion no valida.")
 
 
-# Funcion para guardar los datos y salir
-def salir_programa(libros, socios):
+# Funcion principal del programa
+def main():
 
-    guardar_libros(libros)
-    guardar_socios(socios)
+    # Creamos los DAO
+    libro_dao = LibroDAO(RUTA_LIBROS)
+    socio_dao = SocioDAO(RUTA_SOCIOS)
 
-    print("\nDatos guardados correctamente.")
-    print("Gracias por utilizar la biblioteca.")
+    # Creamos la biblioteca
+    biblioteca = Biblioteca(libro_dao, socio_dao)
 
+    # Cargamos los datos
+    biblioteca.cargar_datos()
 
-# Funcion para cargar los libros desde el archivo TXT
-def cargar_libros():
+    print("\nInformacion de los libros cargada correctamente.")
+    print("Libros cargados:", len(biblioteca.obtener_todos_los_libros()))
+    print("Socios cargados:", len(biblioteca.obtener_todos_los_socios()))
 
-    libros = {}
+    # Bucle del menu principal
+    while True:
 
-    with open(RUTA_LIBROS, "r", encoding="utf-8") as archivo:
+        mostrar_menu()
 
-        for linea in archivo:
+        opcion = input("Selecciona una opcion: ").strip()
 
-            datos = linea.strip().split(";")
+        if opcion == "1":
 
-            codigo = datos[0]
-            titulo = datos[1]
-            autor = datos[2]
-            anio = int(datos[3])
-            categoria = datos[4]
-            codigo_socio = datos[5]
+            opcion_mostrar_libros(biblioteca)
 
-            # Convertimos el texto None en el valor None de Python
-            if codigo_socio == "None":
-                codigo_socio = None
+        elif opcion == "2":
 
-            # Creamos el objeto Libro
-            libro = Libro(codigo, titulo, autor, anio,
-                          categoria, codigo_socio)
+            opcion_mostrar_disponibles(biblioteca)
 
-            # Guardamos el libro en el diccionario
-            libros[codigo] = libro
+        elif opcion == "3":
 
-    return libros
+            opcion_buscar_libro(biblioteca)
 
+        elif opcion == "4":
 
-# Funcion para cargar los socios desde el archivo TXT
-def cargar_socios():
+            opcion_prestar_libro(biblioteca)
 
-    socios = {}
+        elif opcion == "5":
 
-    with open(RUTA_SOCIOS, "r", encoding="utf-8") as archivo:
+            opcion_devolver_libro(biblioteca)
 
-        for linea in archivo:
+        elif opcion == "6":
 
-            datos = linea.strip().split(";")
+            opcion_mostrar_prestamos(biblioteca)
 
-            codigo = datos[0]
-            nombre = datos[1]
-            email = datos[2]
-            codigo_libro = datos[3]
+        elif opcion == "7":
 
-            # Convertimos el texto None en el valor None de Python
-            if codigo_libro == "None":
-                codigo_libro = None
+            opcion_anadir_elementos(biblioteca)
 
-            # Creamos el objeto Socio
-            socio = Socio(codigo, nombre, email, codigo_libro)
+        elif opcion == "8":
 
-            # Guardamos el socio en el diccionario
-            socios[codigo] = socio
+            biblioteca.guardar_datos()
 
-    return socios
+            print("\nDatos guardados correctamente.")
+            print("Gracias por utilizar la biblioteca.")
 
+            break
 
-# Funcion para guardar los libros en el archivo TXT
-def guardar_libros(libros):
+        else:
 
-    with open(RUTA_LIBROS, "w", encoding="utf-8") as archivo:
-
-        for libro in libros.values():
-
-            codigo_socio = libro.codigo_socio
-
-            # Si el libro esta disponible, escribimos None
-            if codigo_socio is None:
-                codigo_socio = "None"
-
-            linea = (f"{libro.codigo};{libro.titulo};{libro.autor};"
-                     f"{libro.anio};{libro.categoria};{codigo_socio}\n")
-
-            archivo.write(linea)
-
-
-# Funcion para guardar los socios en el archivo TXT
-def guardar_socios(socios):
-
-    with open(RUTA_SOCIOS, "w", encoding="utf-8") as archivo:
-
-        for socio in socios.values():
-
-            codigo_libro = socio.codigo_libro
-
-            # Si el socio no tiene libro, escribimos None
-            if codigo_libro is None:
-                codigo_libro = "None"
-
-            linea = (f"{socio.codigo};{socio.nombre};"
-                     f"{socio.email};{codigo_libro}\n")
-
-            archivo.write(linea)
-
-
-
-# Funcion para registrar los eventos de la biblioteca
-def registrar_evento(evento, detalles):
-
-    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    with open(RUTA_LOG, "a", encoding="utf-8") as archivo:
-
-        archivo.write(f"[{fecha}][{evento}][{detalles}]\n")
-
-
-# Funcion para prestar un libro a un socio
-def prestar_libro(libros, socios):
-
-    try:
-
-        # Pedimos los codigos
-        print("\nIntroduce el codigo del libro:")
-        codigo_libro = input("> ").strip().upper()
-
-        print("Introduce el codigo del socio:")
-        codigo_socio = input("> ").strip().upper()
-        
-        # Comprobamos que el libro existe
-        if codigo_libro not in libros:
-            raise ErrorBiblioteca("LIBRO_NO_EXISTE", "El libro no existe.")
-
-        # Comprobamos que el socio existe
-        if codigo_socio not in socios:
-            raise ErrorBiblioteca("SOCIO_NO_EXISTE", "El socio no existe.")
-
-        # Obtenemos los objetos
-        libro = libros[codigo_libro]
-        socio = socios[codigo_socio]
-
-        # Comprobamos que el libro esta disponible
-        if not libro.esta_disponible():
-            raise ErrorBiblioteca("LIBRO_PRESTADO", "El libro ya esta prestado.")
-
-        # Comprobamos que el socio no tiene otro libro
-        if socio.tiene_libro():
-            raise ErrorBiblioteca("SOCIO_CON_LIBRO", "El socio ya tiene un libro.")
-
-        # Realizamos el prestamo
-        libro.asignar_socio(codigo_socio)
-        socio.asignar_libro(codigo_libro)
-
-        # Registramos el evento
-        registrar_evento(
-            "PRESTAMO",
-            f"Libro {codigo_libro} prestado al socio {codigo_socio}"
-        )
-
-        print("Prestamo realizado correctamente.")
-
-    except ErrorBiblioteca as error:
-
-        print("ERROR:", error.mensaje)
-        print("Codigo:", error.codigo)
-
-
-
-# Funcion para devolver el libro de un socio
-def devolver_libro(libros, socios):
-
-    try:
-
-        # Pedimos el codigo del socio
-        codigo_socio = input("Introduce el codigo del socio: ").strip().upper()
-
-        # Comprobamos que el socio existe
-        if codigo_socio not in socios:
-            raise ErrorBiblioteca("SOCIO_NO_EXISTE", "El socio no existe.")
-
-        # Obtenemos el socio
-        socio = socios[codigo_socio]
-
-        # Comprobamos que tiene algun libro
-        if not socio.tiene_libro():
-            raise ErrorBiblioteca("SIN_PRESTAMO", "El socio no tiene ningun libro.")
-
-        # Obtenemos el codigo del libro
-        codigo_libro = socio.codigo_libro
-
-        # Comprobamos que el libro existe
-        if codigo_libro not in libros:
-            raise ErrorBiblioteca("LIBRO_NO_EXISTE", "El libro asociado no existe.")
-
-        # Obtenemos el libro
-        libro = libros[codigo_libro]
-
-        # Liberamos el libro y el socio
-        libro.liberar()
-        socio.liberar_libro()
-
-        # Registramos el evento
-        registrar_evento(
-            "DEVOLUCION",
-            f"Libro {codigo_libro} devuelto por el socio {codigo_socio}"
-        )
-
-        print("Devolucion realizada correctamente.")
-
-    except ErrorBiblioteca as error:
-
-        print("ERROR:", error.mensaje)
-        print("Codigo:", error.codigo)
-
+            print("Opcion no valida. Introduce un numero del 1 al 8.")
 
 
 # Iniciamos el programa
 if __name__ == "__main__":
     main()
-
