@@ -1,6 +1,6 @@
 S001;Ana Lopez;ana.lopez@example.com;None
 S002;Carlos Garcia;carlos.garcia@example.com;None
-S003;Maria Perez;maria.perez@example.com;None
+S003;Maria Perez;maria.perez@example.com;L003
 S004;Javier Martin;javier.martin@example.com;None
 S005;Laura Sanchez;laura.sanchez@example.com;None
 S006;David Romero;david.romero@example.com;None
@@ -13,3 +13,4 @@ S012;Unai Garcia;unai.garcia@example.com;None
 S013;Irene Navarro;irene.navarro@example.com;None
 S014;Mikel Aramburu;mikel.aramburu@example.com;None
 S015;Claudia Moreno;claudia.moreno@example.com;None
+S016;Socio de prueba;prueba@email.com;None

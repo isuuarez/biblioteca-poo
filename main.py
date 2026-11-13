@@ -25,7 +25,7 @@ def mostrar_menu():
     print("4. Prestar libro")
     print("5. Devolver libro")
     print("6. Mostrar socios con prestamos")
-    print("7. Anadir libros y socios")
+    print("7. Añadir libros y socios")
     print("8. Salir")
 
     print("================================")
@@ -180,7 +180,7 @@ def mostrar_prestamos(libros, socios):
 # Funcion para anadir un libro nuevo
 def anadir_libro(libros):
 
-    print("\n--------------- ANADIR LIBRO ---------------")
+    print("\n--------------- AÑADIR LIBRO ---------------")
 
     codigo = input("Introduce el codigo del libro: ").strip().upper()
 
@@ -212,13 +212,13 @@ def anadir_libro(libros):
     # Lo anadimos al diccionario
     libros[codigo] = libro
 
-    print("Libro anadido correctamente.")
+    print("Libro añadido correctamente.")
 
 
-# Funcion para anadir un socio nuevo
+# Funcion para añadir un socio nuevo
 def anadir_socio(socios):
 
-    print("\n--------------- ANADIR SOCIO ---------------")
+    print("\n--------------- AÑADIR SOCIO ---------------")
 
     codigo = input("Introduce el codigo del socio: ").strip().upper()
 
@@ -240,15 +240,15 @@ def anadir_socio(socios):
     # Lo anadimos al diccionario
     socios[codigo] = socio
 
-    print("Socio anadido correctamente.")
+    print("Socio añadido correctamente.")
 
 
-# Funcion para elegir si queremos anadir un libro o un socio
+# Funcion para elegir si queremos añadir un libro o un socio
 def anadir_elementos(libros, socios):
 
     while True:
 
-        print("\n--------------- ANADIR ELEMENTOS ---------------")
+        print("\n--------------- AÑADIR ELEMENTOS ---------------")
         print("1. Añadir un libro")
         print("2. Añadir un socio")
         print("3. Volver al menu principal")
