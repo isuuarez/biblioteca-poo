@@ -1,0 +1,102 @@
+L001;Don Quijote de la Mancha;Miguel de Cervantes;1605;Novela;None
+L002;La sombra del viento;Carlos Ruiz Zafon;2001;Misterio;None
+L003;El principito;Antoine de Saint-Exupery;1943;Infantil;S003
+L004;Cien anos de soledad;Gabriel Garcia Marquez;1967;Realismo magico;None
+L005;La casa de los espiritus;Isabel Allende;1982;Novela;None
+L006;1984;George Orwell;1949;Ciencia ficcion;None
+L007;Rebelion en la granja;George Orwell;1945;Satira;None
+L008;Orgullo y prejuicio;Jane Austen;1813;Romance;None
+L009;Frankenstein;Mary Shelley;1818;Terror;None
+L010;Dracula;Bram Stoker;1897;Terror;None
+L011;Matar a un ruisenor;Harper Lee;1960;Novela;None
+L012;El nombre de la rosa;Umberto Eco;1980;Misterio;None
+L013;Los pilares de la Tierra;Ken Follett;1989;Novela historica;None
+L014;El codigo Da Vinci;Dan Brown;2003;Thriller;None
+L015;La isla del tesoro;Robert Louis Stevenson;1883;Aventuras;None
+L016;Las aventuras de Sherlock Holmes;Arthur Conan Doyle;1892;Misterio;None
+L017;El hobbit;J R R Tolkien;1937;Fantasia;None
+L018;El senor de los anillos;J R R Tolkien;1954;Fantasia;None
+L019;Harry Potter y la piedra filosofal;J K Rowling;1997;Fantasia;None
+L020;Harry Potter y la camara secreta;J K Rowling;1998;Fantasia;None
+L021;Harry Potter y el prisionero de Azkaban;J K Rowling;1999;Fantasia;None
+L022;Los juegos del hambre;Suzanne Collins;2008;Ciencia ficcion;None
+L023;En llamas;Suzanne Collins;2009;Ciencia ficcion;None
+L024;Sinsajo;Suzanne Collins;2010;Ciencia ficcion;None
+L025;Crimen y castigo;Fiodor Dostoyevski;1866;Clasico;None
+L026;Los hermanos Karamazov;Fiodor Dostoyevski;1880;Clasico;None
+L027;Guerra y paz;Leon Tolstoi;1869;Novela historica;None
+L028;Anna Karenina;Leon Tolstoi;1878;Novela;None
+L029;La metamorfosis;Franz Kafka;1915;Fantasia;None
+L030;El proceso;Franz Kafka;1925;Novela;None
+L031;El viejo y el mar;Ernest Hemingway;1952;Novela;None
+L032;Por quien doblan las campanas;Ernest Hemingway;1940;Novela historica;None
+L033;Moby Dick;Herman Melville;1851;Aventuras;None
+L034;La vuelta al mundo en ochenta dias;Julio Verne;1872;Aventuras;None
+L035;Viaje al centro de la Tierra;Julio Verne;1864;Ciencia ficcion;None
+L036;Veinte mil leguas de viaje submarino;Julio Verne;1870;Ciencia ficcion;None
+L037;La maquina del tiempo;H G Wells;1895;Ciencia ficcion;None
+L038;La guerra de los mundos;H G Wells;1898;Ciencia ficcion;None
+L039;El retrato de Dorian Gray;Oscar Wilde;1890;Clasico;None
+L040;Alicia en el pais de las maravillas;Lewis Carroll;1865;Fantasia;None
+L041;A traves del espejo;Lewis Carroll;1871;Fantasia;None
+L042;Mujercitas;Louisa May Alcott;1868;Novela;None
+L043;Jane Eyre;Charlotte Bronte;1847;Romance;None
+L044;Cumbres borrascosas;Emily Bronte;1847;Romance;None
+L045;Madame Bovary;Gustave Flaubert;1856;Novela;None
+L046;Los miserables;Victor Hugo;1862;Novela historica;None
+L047;Nuestra senora de Paris;Victor Hugo;1831;Novela historica;None
+L048;El conde de Montecristo;Alexandre Dumas;1844;Aventuras;None
+L049;Los tres mosqueteros;Alexandre Dumas;1844;Aventuras;None
+L050;La Celestina;Fernando de Rojas;1499;Clasico;None
+L051;Lazarillo de Tormes;Anonimo;1554;Clasico;None
+L052;La divina comedia;Dante Alighieri;1320;Poesia;None
+L053;El gran Gatsby;F Scott Fitzgerald;1925;Novela;None
+L054;Al este del Eden;John Steinbeck;1952;Novela;None
+L055;Las uvas de la ira;John Steinbeck;1939;Novela;None
+L056;Fahrenheit 451;Ray Bradbury;1953;Ciencia ficcion;None
+L057;Cronicas marcianas;Ray Bradbury;1950;Ciencia ficcion;None
+L058;Un mundo feliz;Aldous Huxley;1932;Ciencia ficcion;None
+L059;El guardián entre el centeno;J D Salinger;1951;Novela;None
+L060;El alquimista;Paulo Coelho;1988;Aventura;None
+L061;Ensayo sobre la ceguera;Jose Saramago;1995;Novela;None
+L062;El amor en los tiempos del colera;Gabriel Garcia Marquez;1985;Romance;None
+L063;Cronica de una muerte anunciada;Gabriel Garcia Marquez;1981;Misterio;None
+L064;Pedro Paramo;Juan Rulfo;1955;Realismo magico;None
+L065;Como agua para chocolate;Laura Esquivel;1989;Romance;None
+L066;Rayuela;Julio Cortazar;1963;Novela;None
+L067;Bestiario;Julio Cortazar;1951;Relatos;None
+L068;Ficciones;Jorge Luis Borges;1944;Relatos;None
+L069;El Aleph;Jorge Luis Borges;1949;Relatos;None
+L070;La ciudad y los perros;Mario Vargas Llosa;1963;Novela;None
+L071;La fiesta del Chivo;Mario Vargas Llosa;2000;Novela historica;None
+L072;Patria;Fernando Aramburu;2016;Novela;None
+L073;Los renglones torcidos de Dios;Torcuato Luca de Tena;1979;Misterio;None
+L074;El camino;Miguel Delibes;1950;Novela;None
+L075;Cinco horas con Mario;Miguel Delibes;1966;Novela;None
+L076;La colmena;Camilo Jose Cela;1951;Novela;None
+L077;Nada;Carmen Laforet;1945;Novela;None
+L078;Entre visillos;Carmen Martin Gaite;1957;Novela;None
+L079;Los santos inocentes;Miguel Delibes;1981;Novela;None
+L080;El lapiz del carpintero;Manuel Rivas;1998;Novela historica;None
+L081;La catedral del mar;Ildefonso Falcones;2006;Novela historica;None
+L082;El tiempo entre costuras;Maria Duenas;2009;Novela historica;None
+L083;Reina roja;Juan Gomez-Jurado;2018;Thriller;None
+L084;Loba negra;Juan Gomez-Jurado;2019;Thriller;None
+L085;Todo esto te dare;Dolores Redondo;2016;Misterio;None
+L086;El guardian invisible;Dolores Redondo;2013;Misterio;None
+L087;La verdad sobre el caso Harry Quebert;Joel Dicker;2012;Misterio;None
+L088;La chica del tren;Paula Hawkins;2015;Thriller;None
+L089;Perdida;Gillian Flynn;2012;Thriller;None
+L090;El psicoanalista;John Katzenbach;2002;Thriller;None
+L091;Sapiens;Yuval Noah Harari;2011;Ensayo;None
+L092;Homo Deus;Yuval Noah Harari;2015;Ensayo;None
+L093;Breves respuestas a las grandes preguntas;Stephen Hawking;2018;Divulgacion;None
+L094;El universo en una cascara de nuez;Stephen Hawking;2001;Divulgacion;None
+L095;Una breve historia de casi todo;Bill Bryson;2003;Divulgacion;None
+L096;El cerebro del nino;Daniel J Siegel;2011;Psicologia;None
+L097;Inteligencia emocional;Daniel Goleman;1995;Psicologia;None
+L098;El poder de los habitos;Charles Duhigg;2012;Desarrollo personal;None
+L099;Pensar rapido pensar despacio;Daniel Kahneman;2011;Psicologia;None
+L100;El principe;Nicolas Maquiavelo;1532;Ensayo;None
+L101;S016;Iñaki;2026;Desarrollo personal;None
+L102;Libro de Prueba;Autor de Prueba;2020;Prueba;None
