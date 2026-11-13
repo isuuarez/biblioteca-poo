@@ -12,6 +12,197 @@ RUTA_SOCIOS = "datos/socios.txt"
 RUTA_LOG = "log.txt"
 
 
+# Funcion para mostrar los datos de un libro
+def mostrar_datos_libro(libro):
+
+    if libro.esta_disponible():
+        estado = "Disponible"
+    else:
+        estado = "Prestado"
+
+    print(
+        f"{libro.codigo} | {libro.titulo} | "
+        f"{libro.autor} | {libro.anio} | "
+        f"{libro.categoria} | {estado}"
+    )
+
+
+# Funcion para mostrar todos los libros
+def mostrar_libros(libros):
+
+    print("\n--------------- TODOS LOS LIBROS ---------------")
+    print("CODIGO | TITULO | AUTOR | ANIO | CATEGORIA | ESTADO")
+
+    for libro in libros.values():
+        mostrar_datos_libro(libro)
+
+
+# Funcion para mostrar solamente los libros disponibles
+def mostrar_disponibles(libros):
+
+    print("\n--------------- LIBROS DISPONIBLES ---------------")
+
+    encontrados = False
+
+    for libro in libros.values():
+
+        if libro.esta_disponible():
+            mostrar_datos_libro(libro)
+            encontrados = True
+
+    if not encontrados:
+        print("No hay libros disponibles.")
+
+
+# Funcion para buscar un libro por su titulo
+def buscar_libro(libros):
+
+    termino = input("\nIntroduce el titulo o una parte del titulo: ").strip().casefold()
+
+    encontrados = False
+
+    for libro in libros.values():
+
+        if termino in libro.titulo.casefold():
+
+            mostrar_datos_libro(libro)
+            encontrados = True
+
+    if not encontrados:
+        print("No se ha encontrado ningun libro.")
+
+
+# Funcion para mostrar los socios que tienen libros prestados
+def mostrar_prestamos(libros, socios):
+
+    print("\n--------------- SOCIOS CON PRESTAMOS ---------------")
+
+    encontrados = False
+
+    for socio in socios.values():
+
+        if socio.tiene_libro():
+
+            codigo_libro = socio.codigo_libro
+            libro = libros.get(codigo_libro)
+
+            if libro is not None:
+                print(
+                    f"Socio: {socio.codigo} | {socio.nombre} | "
+                    f"Libro: {libro.titulo}"
+                )
+            else:
+                print(
+                    f"Socio: {socio.codigo} | "
+                    f"Libro asociado: {codigo_libro}"
+                )
+
+            encontrados = True
+
+    if not encontrados:
+        print("Actualmente no hay libros prestados.")
+
+
+# Funcion para anadir un libro nuevo
+def anadir_libro(libros):
+
+    print("\n--------------- ANADIR LIBRO ---------------")
+
+    codigo = input("Introduce el codigo del libro: ").strip().upper()
+
+    # Comprobamos que el codigo no exista
+    if not codigo:
+        print("El codigo no puede estar vacio.")
+        return
+
+    if codigo in libros:
+        print("Ya existe un libro con ese codigo.")
+        return
+
+    titulo = input("Introduce el titulo: ").strip()
+    autor = input("Introduce el autor: ").strip()
+
+    # Comprobamos que el ano sea numerico
+    try:
+        anio = int(input("Introduce el ano: "))
+
+    except ValueError:
+        print("El ano debe ser un numero.")
+        return
+
+    categoria = input("Introduce la categoria: ").strip()
+
+    # Creamos el nuevo libro
+    libro = Libro(codigo, titulo, autor, anio, categoria)
+
+    # Lo anadimos al diccionario
+    libros[codigo] = libro
+
+    print("Libro anadido correctamente.")
+
+
+# Funcion para anadir un socio nuevo
+def anadir_socio(socios):
+
+    print("\n--------------- ANADIR SOCIO ---------------")
+
+    codigo = input("Introduce el codigo del socio: ").strip().upper()
+
+    # Comprobamos que el codigo no exista
+    if not codigo:
+        print("El codigo no puede estar vacio.")
+        return
+
+    if codigo in socios:
+        print("Ya existe un socio con ese codigo.")
+        return
+
+    nombre = input("Introduce el nombre: ").strip()
+    email = input("Introduce el email: ").strip()
+
+    # Creamos el nuevo socio
+    socio = Socio(codigo, nombre, email)
+
+    # Lo anadimos al diccionario
+    socios[codigo] = socio
+
+    print("Socio anadido correctamente.")
+
+
+# Funcion para elegir si queremos anadir un libro o un socio
+def anadir_elementos(libros, socios):
+
+    while True:
+
+        print("\n--------------- ANADIR ELEMENTOS ---------------")
+        print("1. Anadir un libro")
+        print("2. Anadir un socio")
+        print("3. Volver al menu principal")
+
+        opcion = input("Selecciona una opcion: ").strip()
+
+        if opcion == "1":
+            anadir_libro(libros)
+
+        elif opcion == "2":
+            anadir_socio(socios)
+
+        elif opcion == "3":
+            break
+
+        else:
+            print("Opcion no valida.")
+
+
+# Funcion para guardar los datos y salir
+def salir_programa(libros, socios):
+
+    guardar_libros(libros)
+    guardar_socios(socios)
+
+    print("\nDatos guardados correctamente.")
+    print("Gracias por utilizar la biblioteca.")
+
 
 # Funcion para cargar los libros desde el archivo TXT
 def cargar_libros():
@@ -220,7 +411,8 @@ def devolver_libro(libros, socios):
         print("ERROR:", error.mensaje)
         print("Codigo:", error.codigo)
 
-# PRUEBAS TEMPORALES DE LA FASE 5
+
+# PRUEBAS TEMPORALES DE LA FASE 6
 
 if __name__ == "__main__":
 
@@ -232,18 +424,19 @@ if __name__ == "__main__":
     print("Libros:", len(libros))
     print("Socios:", len(socios))
 
-    print("\n----- REALIZAR PRESTAMO -----")
-    prestar_libro(libros, socios)
+    # Opcion 1: mostrar todos los libros
+    mostrar_libros(libros)
 
-    # Guardamos los cambios del prestamo
-    guardar_libros(libros)
-    guardar_socios(socios)
+    # Opcion 2: mostrar libros disponibles
+    mostrar_disponibles(libros)
 
-    print("\n----- REALIZAR DEVOLUCION -----")
-    devolver_libro(libros, socios)
+    # Opcion 3: buscar un libro
+    buscar_libro(libros)
 
-    # Guardamos los cambios de la devolucion
-    guardar_libros(libros)
-    guardar_socios(socios)
+    # Opcion 6: mostrar socios con prestamos
+    mostrar_prestamos(libros, socios)
 
-    print("\nPruebas finalizadas.")
+    # Opcion 7: anadir libros o socios
+    anadir_elementos(libros, socios)
+
+    print("\nPruebas de la FASE 6 finalizadas.")
