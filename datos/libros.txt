@@ -100,3 +100,4 @@ L099;Pensar rapido pensar despacio;Daniel Kahneman;2011;Psicologia;None
 L100;El principe;Nicolas Maquiavelo;1532;Ensayo;None
 L101;S016;Iñaki;2026;Desarrollo personal;None
 L102;Libro de Prueba;Autor de Prueba;2020;Prueba;None
+L105;Prueba;Autor Prueba;2026;Ficción;None

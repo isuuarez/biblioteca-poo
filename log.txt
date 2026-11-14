@@ -7,3 +7,5 @@
 [2026-11-13 20:44:13][PRESTAMO][Libro L003 prestado al socio S003]
 [2026-11-13 21:26:30][PRESTAMO][Libro L005 prestado al socio S005]
 [2026-11-13 21:26:44][DEVOLUCION][Libro L005 devuelto por el socio S005]
+[2026-11-13 22:14:51][PRESTAMO][Libro L006 prestado al socio S006]
+[2026-11-13 22:15:55][DEVOLUCION][Libro L006 devuelto por el socio S006]

@@ -14,3 +14,4 @@ S013;Irene Navarro;irene.navarro@example.com;None
 S014;Mikel Aramburu;mikel.aramburu@example.com;None
 S015;Claudia Moreno;claudia.moreno@example.com;None
 S016;Socio de prueba;prueba@email.com;None
+S020;Socio prueba;socio@prueba.com;None
